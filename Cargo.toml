@@ -1,8 +1,9 @@
 [workspace]
 members = [
+  "crates/mvcc",
+  "crates/sled",
   "crates/pagecache",
   "crates/pagetable",
-  "crates/sled",
   "tests",
 ]
 exclude = [
@@ -11,6 +12,7 @@ exclude = [
   "crates/deterministic",
   "crates/model",
   "crates/simulator",
+  "crates/paxos",
   "examples/crdt_merge_store",
   "examples/pessimistic_transactions",
   "examples/playground",
