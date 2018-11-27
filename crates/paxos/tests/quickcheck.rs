@@ -10,6 +10,7 @@ use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 use self::paxos::*;
 use self::quickcheck::{Arbitrary, Gen, QuickCheck, StdGen};
+use self::rand::Rng;
 
 #[derive(PartialOrd, Ord, Eq, PartialEq, Debug, Clone)]
 struct Partition {
@@ -79,7 +80,7 @@ impl Arbitrary for ClientRequest {
             1 => ClientRequest::Del,
             2 => ClientRequest::Set(vec![g.gen_range(0, 2)]),
             _ => ClientRequest::Cas(
-                if g.gen_weighted_bool(3) {
+                if g.gen_bool(0.3) {
                     None
                 } else {
                     Some(vec![g.gen_range(0, 2)])
@@ -249,15 +250,13 @@ impl Arbitrary for Cluster {
                         acceptor_addrs.clone(),
                     )),
                 )
-            })
-            .collect();
+            }).collect();
 
         let acceptors: Vec<(String, Node)> = acceptor_addrs
             .iter()
             .map(|addr| {
                 (addr.clone(), Node::Acceptor(Acceptor::default()))
-            })
-            .collect();
+            }).collect();
 
         let mut requests = vec![];
         let mut req_counter = 0;
@@ -387,8 +386,7 @@ fn check_linearizability(
             } else {
                 panic!("non-ClientResponse sent to client")
             }
-        })
-        .collect();
+        }).collect();
 
     for r in request_rpcs {
         let (id, req) = if let Rpc::ClientRequest(id, req) = r.msg {
@@ -597,7 +595,7 @@ fn linearizability_bug_01() {
                 )),
             ),
         ].into_iter()
-            .collect(),
+        .collect(),
         partitions: vec![],
         in_flight: vec![
             ScheduledMessage {
@@ -740,7 +738,7 @@ fn linearizability_bug_01() {
                 ),
             },
         ].into_iter()
-            .collect(),
+        .collect(),
         client_responses: vec![],
     });
 }

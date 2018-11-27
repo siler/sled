@@ -57,9 +57,11 @@ where
                         from,
                         ProposeRes {
                             req_ballot: ballot,
-                            last_accepted_ballot: self.store
+                            last_accepted_ballot: self
+                                .store
                                 .get_accepted_ballot(key.clone()),
-                            last_accepted_value: self.store
+                            last_accepted_value: self
+                                .store
                                 .get_accepted_value(key.clone()),
                             res: Ok(()),
                         },
@@ -69,9 +71,11 @@ where
                         from,
                         ProposeRes {
                             req_ballot: ballot,
-                            last_accepted_ballot: self.store
+                            last_accepted_ballot: self
+                                .store
                                 .get_accepted_ballot(key.clone()),
-                            last_accepted_value: self.store
+                            last_accepted_value: self
+                                .store
                                 .get_accepted_value(key.clone()),
                             res: Err(Error::ProposalRejected {
                                 last: current_ballot,

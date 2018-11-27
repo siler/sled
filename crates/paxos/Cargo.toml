@@ -11,7 +11,7 @@ documentation = "https://docs.rs/paxos/"
 readme = "README.md"
 
 [dependencies]
-sled = { path = "../sled", version = "0.15"}
+sled = { path = "../sled", version = "0.16"}
 bincode = "1.0"
 serde = "1.0"
 serde_derive = "1.0"

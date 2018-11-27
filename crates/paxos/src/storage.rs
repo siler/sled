@@ -98,7 +98,7 @@ impl Storage for SledStorage {
     }
     fn get_accepted_value(&mut self, mut k: Key) -> Option<Value> {
         k.push(LAST_VALUE_SUFFIX);
-        self.inner.get(&k).unwrap()
+        self.inner.get(&k).unwrap().map(|v| v.to_vec())
     }
     fn set_highest_seen(&mut self, mut k: Key, ballot: Ballot) {
         k.push(HIGHEST_SEEN_SUFFIX);
