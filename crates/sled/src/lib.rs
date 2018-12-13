@@ -36,6 +36,7 @@
 mod binary_search;
 mod bound;
 mod data;
+mod db;
 mod frag;
 mod iter;
 mod materializer;
@@ -46,11 +47,13 @@ mod recovery;
 mod subscription;
 mod tree;
 
-pub use self::iter::{Iter, Keys, Values};
-pub use self::pinned_value::PinnedValue;
-pub use self::subscription::{Event, Subscriber};
-/// atomic lock-free tree
-pub use self::tree::Tree;
+pub use self::{
+    db::{tx, Db, Tx},
+    iter::{Iter, Keys, Values},
+    pinned_value::PinnedValue,
+    subscription::{Event, Subscriber},
+    tree::Tree,
+};
 
 use pagecache::{
     Materializer, Measure, MergeOperator, PageCache, PageGet, PageId,
