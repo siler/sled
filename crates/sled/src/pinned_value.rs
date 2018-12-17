@@ -8,7 +8,7 @@ use super::*;
 /// A reference to a heap location that is
 /// guaranteed to be valid for as long as this
 /// value exists.
-pub struct PinnedValue(*const u8, usize, Guard);
+pub struct PinnedValue(pub(crate) *const u8, pub(crate) usize, Guard);
 
 impl PinnedValue {
     /// Create a shallow copy of the PinnedValue
